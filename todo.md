@@ -112,11 +112,11 @@
 
 ## Footer 重建
 
-- [ ] 重建 Footer 组件，采用 4 列布局（Project、Resources、Community、Contact & Contract）
-- [ ] 添加所有链接和社交媒体
-- [ ] 实现合约地址复制功能
-- [ ] 添加版权和法律链接
-- [ ] 验证所有链接和交互
+- [x] 重建 Footer 组件，采用 4 列布局（Project、Resources、Community、Contact & Contract）
+- [x] 添加所有链接和社交媒体
+- [x] 实现合约地址复制功能
+- [x] 添加版权和法律链接
+- [x] 验证所有链接和交互
 
 
 ## 紧急修复 - BSCScan 审核关键错误
@@ -127,7 +127,7 @@
 - [x] 页脚添加 Telegram 链接
 - [x] 页脚添加 GitHub 链接
 - [x] 页脚添加风险披露声明
-- [ ] 验证英文版本内容完整性
+- [x] 验证英文版本内容完整性
 
 
 ## 整体多语言系统修复
@@ -227,3 +227,11 @@
 - [x] 推送到 GitHub
 - [x] 部署到生产环境
 - [x] 验证生产环境正常
+
+
+## 2026年6月 - 代币经济学更新
+
+- [x] 在 Tokenomics 表格中添加 APY 10% 质押奖励行
+  - 新增行：Staking Rewards (APY 10%) | 10.1% | 20,260,000 ISC | Annual Staking Rewards Pool | ✓ Active
+  - 调整 Community / Ecosystem / R&D 数量从 80,040,000 ISC 改为 59,780,000 ISC
+  - 编译验证：成功（18.55s）
