@@ -12,7 +12,6 @@ export default function HeroSection() {
 
   const stats = [
     { label: t("hero.totalSupply"), value: "202,600,000", unit: "ISC" },
-    { label: t("hero.presalePrice"), value: "1 USDT", unit: "= 2000 ISC" },
     { label: t("hero.chain"), value: "BSC", unit: "BEP-20" },
   ];
 
