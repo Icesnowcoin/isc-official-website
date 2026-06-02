@@ -3,13 +3,13 @@
  * Displays a 3-step guide to purchasing ISC tokens
  */
 
-import { motion } from 'framer-motion';
-import { Wallet, ArrowRightLeft } from 'lucide-react';
-import { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { motion } from "framer-motion";
+import { Wallet, ArrowRightLeft } from "lucide-react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const CONTRACT_ADDRESS = '0x11229a3f976566FA8a3ba462C432122f3B8876f6';
+const CONTRACT_ADDRESS = "0x11229a3f976566FA8a3ba462C432122f3B8876f6";
 const PANCAKESWAP_URL = `https://pancakeswap.finance/swap?outputCurrency=${CONTRACT_ADDRESS}`;
 
 export default function HowToBuySection() {
@@ -17,19 +17,19 @@ export default function HowToBuySection() {
 
   const steps = [
     {
-      number: '01',
+      number: "01",
       icon: Wallet,
-      title: t('howToBuy.step1.title'),
-      description: t('howToBuy.step1.desc'),
-      hint: t('howToBuy.step1.hint'),
+      title: t("howToBuy.step1.title"),
+      description: t("howToBuy.step1.desc"),
+      hint: t("howToBuy.step1.hint"),
     },
     {
-      number: '02',
+      number: "02",
       icon: ArrowRightLeft,
-      title: t('howToBuy.step2.title'),
-      description: t('howToBuy.step2.desc'),
+      title: t("howToBuy.step2.title"),
+      description: t("howToBuy.step2.desc"),
       button: {
-        text: t('howToBuy.step2.button'),
+        text: t("howToBuy.step2.button"),
         link: PANCAKESWAP_URL,
       },
     },
@@ -67,13 +67,13 @@ export default function HowToBuySection() {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, type: 'tween' }}
+          transition={{ duration: 0.6, type: "tween" }}
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            {t('howToBuy.title')}
+            {t("howToBuy.title")}
           </h2>
           <p className="text-lg text-muted-foreground">
-            {t('howToBuy.subtitle')}
+            {t("howToBuy.subtitle")}
           </p>
         </motion.div>
 
@@ -88,7 +88,11 @@ export default function HowToBuySection() {
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (
-              <motion.div key={step.number} variants={itemVariants} className="relative">
+              <motion.div
+                key={step.number}
+                variants={itemVariants}
+                className="relative"
+              >
                 {/* Arrow connector (desktop only) */}
                 {index < steps.length - 1 && (
                   <div className="hidden md:block absolute top-20 -right-4 w-8 h-0.5 bg-gradient-to-r from-cyan-500 to-transparent" />
@@ -129,7 +133,7 @@ export default function HowToBuySection() {
                     {/* Button */}
                     {step.button && (
                       <Button
-                        onClick={() => window.open(step.button.link, '_blank')}
+                        onClick={() => window.open(step.button.link, "_blank")}
                         className="w-full bg-gradient-to-r from-cyan-400 to-purple-500 hover:from-cyan-300 hover:to-purple-400 text-white font-semibold rounded-lg transition-all duration-300"
                       >
                         {step.button.text}
@@ -151,7 +155,8 @@ export default function HowToBuySection() {
           transition={{ duration: 0.6, delay: 0.6 }}
         >
           <p className="text-amber-100 text-sm md:text-base">
-            ⚠️ <span className="font-semibold">{t('howToBuy.securityTip')}</span>{' '}
+            ⚠️{" "}
+            <span className="font-semibold">{t("howToBuy.securityTip")}</span>{" "}
             <span className="font-mono text-amber-300">{CONTRACT_ADDRESS}</span>
           </p>
         </motion.div>

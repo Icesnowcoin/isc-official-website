@@ -10,8 +10,8 @@
  * - Smooth 3D-like transitions
  */
 
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Particle {
   x: number;
@@ -30,8 +30,12 @@ interface HolographicIntroAnimationProps {
   onComplete: () => void;
 }
 
-export default function HolographicIntroAnimation({ onComplete }: HolographicIntroAnimationProps) {
-  const [phase, setPhase] = useState<'init' | 'converge' | 'hologram' | 'done'>('init');
+export default function HolographicIntroAnimation({
+  onComplete,
+}: HolographicIntroAnimationProps) {
+  const [phase, setPhase] = useState<"init" | "converge" | "hologram" | "done">(
+    "init"
+  );
   const [canSkip, setCanSkip] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
@@ -40,14 +44,16 @@ export default function HolographicIntroAnimation({ onComplete }: HolographicInt
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
 
   // Check for reduced motion preference
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
 
   // Initialize canvas
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     ctxRef.current = ctx;
@@ -57,7 +63,7 @@ export default function HolographicIntroAnimation({ onComplete }: HolographicInt
     // Skip animation if reduced motion is preferred
     if (prefersReducedMotion) {
       setTimeout(() => {
-        setPhase('done');
+        setPhase("done");
         setTimeout(onComplete, 300);
       }, 500);
       return;
@@ -96,9 +102,12 @@ export default function HolographicIntroAnimation({ onComplete }: HolographicInt
     }
 
     particlesRef.current = particles;
-    setPhase('converge');
+    setPhase("converge");
 
-    const skipTimer = setTimeout(() => setCanSkip(true), prefersReducedMotion ? 100 : 2000);
+    const skipTimer = setTimeout(
+      () => setCanSkip(true),
+      prefersReducedMotion ? 100 : 2000
+    );
     return () => {
       if (skipTimer) clearTimeout(skipTimer);
     };
@@ -113,8 +122,8 @@ export default function HolographicIntroAnimation({ onComplete }: HolographicInt
       canvas.height = window.innerHeight;
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Handle page visibility
@@ -128,13 +137,14 @@ export default function HolographicIntroAnimation({ onComplete }: HolographicInt
       }
     };
 
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () =>
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
   }, []);
 
   // Animation loop
   useEffect(() => {
-    if (phase === 'done' || prefersReducedMotion) return;
+    if (phase === "done" || prefersReducedMotion) return;
 
     const canvas = canvasRef.current;
     const ctx = ctxRef.current;
@@ -152,7 +162,7 @@ export default function HolographicIntroAnimation({ onComplete }: HolographicInt
 
       // Update and draw particles
       const particles = particlesRef.current;
-      particles.forEach((particle) => {
+      particles.forEach(particle => {
         // Smooth convergence
         const easeProgress = easeOutQuart(Math.min(progress * 1.2, 1));
         particle.x += (particle.targetX - particle.x) * easeProgress * 0.1;
@@ -163,7 +173,7 @@ export default function HolographicIntroAnimation({ onComplete }: HolographicInt
         const finalOpacity = particle.opacity * (1 - progress * 0.3);
 
         // Draw particle with glow
-        ctx.shadowColor = 'rgba(0, 255, 255, 0.8)';
+        ctx.shadowColor = "rgba(0, 255, 255, 0.8)";
         ctx.shadowBlur = 15 + Math.sin(elapsed * 2) * 5;
         ctx.fillStyle = `rgba(0, 255, 255, ${finalOpacity})`;
         ctx.beginPath();
@@ -176,16 +186,22 @@ export default function HolographicIntroAnimation({ onComplete }: HolographicInt
 
       // Draw data visualization
       if (progress > 0.4) {
-        drawDataVisualization(ctx, canvas.width, canvas.height, elapsed, progress);
+        drawDataVisualization(
+          ctx,
+          canvas.width,
+          canvas.height,
+          elapsed,
+          progress
+        );
       }
 
       // Phase transitions
-      if (progress > 0.5 && phase === 'converge') {
-        setPhase('hologram');
+      if (progress > 0.5 && phase === "converge") {
+        setPhase("hologram");
       }
 
       if (progress >= 1) {
-        setPhase('done');
+        setPhase("done");
         setTimeout(onComplete, 500);
       }
 
@@ -207,20 +223,27 @@ export default function HolographicIntroAnimation({ onComplete }: HolographicInt
     elapsed: number
   ) => {
     // Deep dark background
-    ctx.fillStyle = '#0a0e27';
+    ctx.fillStyle = "#0a0e27";
     ctx.fillRect(0, 0, width, height);
 
     // Radial gradient glow
-    const gradient = ctx.createRadialGradient(width / 2, height / 2, 0, width / 2, height / 2, Math.max(width, height) * 0.8);
-    gradient.addColorStop(0, 'rgba(0, 200, 255, 0.1)');
-    gradient.addColorStop(0.5, 'rgba(0, 100, 200, 0.05)');
-    gradient.addColorStop(1, 'rgba(0, 50, 100, 0)');
+    const gradient = ctx.createRadialGradient(
+      width / 2,
+      height / 2,
+      0,
+      width / 2,
+      height / 2,
+      Math.max(width, height) * 0.8
+    );
+    gradient.addColorStop(0, "rgba(0, 200, 255, 0.1)");
+    gradient.addColorStop(0.5, "rgba(0, 100, 200, 0.05)");
+    gradient.addColorStop(1, "rgba(0, 50, 100, 0)");
 
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, width, height);
 
     // Subtle grid overlay
-    ctx.strokeStyle = 'rgba(0, 150, 200, 0.05)';
+    ctx.strokeStyle = "rgba(0, 150, 200, 0.05)";
     ctx.lineWidth = 1;
     const gridSize = 100;
     for (let x = 0; x < width; x += gridSize) {
@@ -249,7 +272,12 @@ export default function HolographicIntroAnimation({ onComplete }: HolographicInt
 
     // Vertical light beam
     const beamOpacity = Math.sin(progress * Math.PI) * 0.3;
-    const beamGradient = ctx.createLinearGradient(centerX - 50, 0, centerX + 50, 0);
+    const beamGradient = ctx.createLinearGradient(
+      centerX - 50,
+      0,
+      centerX + 50,
+      0
+    );
     beamGradient.addColorStop(0, `rgba(0, 255, 255, 0)`);
     beamGradient.addColorStop(0.5, `rgba(0, 255, 255, ${beamOpacity})`);
     beamGradient.addColorStop(1, `rgba(0, 255, 255, 0)`);
@@ -258,7 +286,12 @@ export default function HolographicIntroAnimation({ onComplete }: HolographicInt
     ctx.fillRect(centerX - 50, centerY - height / 2, 100, height);
 
     // Horizontal light beam
-    const beamGradient2 = ctx.createLinearGradient(0, centerY - 50, 0, centerY + 50);
+    const beamGradient2 = ctx.createLinearGradient(
+      0,
+      centerY - 50,
+      0,
+      centerY + 50
+    );
     beamGradient2.addColorStop(0, `rgba(0, 200, 255, 0)`);
     beamGradient2.addColorStop(0.5, `rgba(0, 200, 255, ${beamOpacity * 0.7})`);
     beamGradient2.addColorStop(1, `rgba(0, 200, 255, 0)`);
@@ -286,9 +319,9 @@ export default function HolographicIntroAnimation({ onComplete }: HolographicInt
 
     // Draw hexagon snowflake
     const hexSize = 100;
-    ctx.strokeStyle = 'rgba(0, 255, 255, 0.8)';
+    ctx.strokeStyle = "rgba(0, 255, 255, 0.8)";
     ctx.lineWidth = 2;
-    ctx.shadowColor = 'rgba(0, 255, 255, 0.6)';
+    ctx.shadowColor = "rgba(0, 255, 255, 0.6)";
     ctx.shadowBlur = 30;
 
     // Outer hexagon
@@ -321,12 +354,12 @@ export default function HolographicIntroAnimation({ onComplete }: HolographicInt
     }
 
     // Center circle with "S" letter
-    ctx.fillStyle = 'rgba(0, 255, 255, 0.3)';
+    ctx.fillStyle = "rgba(0, 255, 255, 0.3)";
     ctx.beginPath();
     ctx.arc(0, 0, 30, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.strokeStyle = 'rgba(0, 255, 255, 0.8)';
+    ctx.strokeStyle = "rgba(0, 255, 255, 0.8)";
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.arc(0, 0, 30, 0, Math.PI * 2);
@@ -351,7 +384,7 @@ export default function HolographicIntroAnimation({ onComplete }: HolographicInt
     const panelCount = 4;
 
     for (let i = 0; i < panelCount; i++) {
-      const angle = (i / panelCount) * Math.PI * 2 + (elapsed * 0.2);
+      const angle = (i / panelCount) * Math.PI * 2 + elapsed * 0.2;
       const x = centerX + Math.cos(angle) * panelRadius;
       const y = centerY + Math.sin(angle) * panelRadius;
 
@@ -385,13 +418,13 @@ export default function HolographicIntroAnimation({ onComplete }: HolographicInt
     if (animationRef.current) {
       cancelAnimationFrame(animationRef.current);
     }
-    setPhase('done');
+    setPhase("done");
     setTimeout(onComplete, 300);
   };
 
   return (
     <AnimatePresence>
-      {phase !== 'done' && (
+      {phase !== "done" && (
         <motion.div
           className="fixed inset-0 z-50 bg-black overflow-hidden"
           exit={{ opacity: 0 }}
@@ -400,7 +433,7 @@ export default function HolographicIntroAnimation({ onComplete }: HolographicInt
           <canvas ref={canvasRef} className="w-full h-full" />
 
           {/* Text overlay */}
-          {phase === 'hologram' && (
+          {phase === "hologram" && (
             <motion.div
               className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
               initial={{ opacity: 0 }}
@@ -410,7 +443,7 @@ export default function HolographicIntroAnimation({ onComplete }: HolographicInt
               <motion.div
                 className="text-center"
                 animate={{ scale: [0.8, 1.1, 1] }}
-                transition={{ duration: 1.2, ease: 'easeOut' }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
               >
                 <h1 className="text-8xl font-black text-transparent bg-gradient-to-r from-cyan-300 via-blue-300 to-cyan-400 bg-clip-text drop-shadow-2xl mb-2">
                   ISC

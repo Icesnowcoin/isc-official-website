@@ -3,12 +3,12 @@
  * 4-column layout with Project, Resources, Community, and Contact sections
  */
 
-import { useState } from 'react';
-import { ExternalLink, Copy, Check } from 'lucide-react';
-import { motion } from 'framer-motion';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useState } from "react";
+import { ExternalLink, Copy, Check } from "lucide-react";
+import { motion } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const CONTRACT_ADDRESS = '0x11229a3f976566FA8a3ba462C432122f3B8876f6';
+const CONTRACT_ADDRESS = "0x11229a3f976566FA8a3ba462C432122f3B8876f6";
 
 export default function Footer() {
   const { t } = useLanguage();
@@ -16,33 +16,69 @@ export default function Footer() {
 
   const footerColumns = [
     {
-      title: t('footer.project'),
+      title: t("footer.project"),
       links: [
-        { label: 'Home', href: '#', internal: true },
-        { label: 'About', href: '#about', internal: true },
-        { label: 'Tokenomics', href: '#tokenomics', internal: true },
-        { label: 'Roadmap', href: '#roadmap', internal: true },
-        { label: 'Whitepaper', href: 'https://icesnowcoin.org', external: true },
+        { label: "Home", href: "#", internal: true },
+        { label: "About", href: "#about", internal: true },
+        { label: "Tokenomics", href: "#tokenomics", internal: true },
+        { label: "Roadmap", href: "#roadmap", internal: true },
+        {
+          label: "Whitepaper",
+          href: "https://icesnowcoin.org",
+          external: true,
+        },
       ],
     },
     {
-      title: t('footer.resources'),
+      title: t("footer.resources"),
       links: [
-        { label: 'Smart Contract', href: 'https://bscscan.com/address/0x11229a3f976566FA8a3ba462C432122f3B8876f6', external: true },
-        { label: 'Source Code', href: 'https://bscscan.com/address/0xf74f38cb35255b85514c49255f0ea29a013cb618#code', external: true },
-        { label: 'LP Lock (UNCX)', href: 'https://app.uncx.network/lockers/manage/lockers-v3?service=edit&wallet=0xf946A6521D201F2C757562Add139E5635e2a80b3&chain=56', external: true },
-        { label: 'Team Vesting', href: 'https://app.team.finance/token-vesting', external: true },
-        { label: 'Telegram', href: 'https://t.me/IceSnowCoinCommunity', external: true },
-        { label: 'GitHub', href: 'https://github.com/Icesnowcoin', external: true },
+        {
+          label: "Smart Contract",
+          href: "https://bscscan.com/address/0x11229a3f976566FA8a3ba462C432122f3B8876f6",
+          external: true,
+        },
+        {
+          label: "Source Code",
+          href: "https://bscscan.com/address/0xf74f38cb35255b85514c49255f0ea29a013cb618#code",
+          external: true,
+        },
+        {
+          label: "LP Lock (UNCX)",
+          href: "https://app.uncx.network/lockers/manage/lockers-v3?service=edit&wallet=0xf946A6521D201F2C757562Add139E5635e2a80b3&chain=56",
+          external: true,
+        },
+        {
+          label: "Team Vesting",
+          href: "https://app.team.finance/token-vesting",
+          external: true,
+        },
+        {
+          label: "Telegram",
+          href: "https://t.me/IceSnowCoinCommunity",
+          external: true,
+        },
+        {
+          label: "GitHub",
+          href: "https://github.com/Icesnowcoin",
+          external: true,
+        },
       ],
     },
     {
-      title: t('footer.community'),
+      title: t("footer.community"),
       links: [
-        { label: 'X (Twitter)', href: 'https://x.com/IceSnowCoin', external: true },
-        { label: 'Telegram', href: 'https://t.me/IceSnowCoinCommunity', external: true },
-        { label: 'Discord', href: '#', external: true },
-        { label: 'Medium', href: '#', external: true },
+        {
+          label: "X (Twitter)",
+          href: "https://x.com/IceSnowCoin",
+          external: true,
+        },
+        {
+          label: "Telegram",
+          href: "https://t.me/IceSnowCoinCommunity",
+          external: true,
+        },
+        { label: "Discord", href: "#", external: true },
+        { label: "Medium", href: "#", external: true },
       ],
     },
   ];
@@ -96,8 +132,8 @@ export default function Footer() {
                   <li key={linkIdx}>
                     <a
                       href={link.href}
-                      target={link.external ? '_blank' : undefined}
-                      rel={link.external ? 'noopener noreferrer' : undefined}
+                      target={link.external ? "_blank" : undefined}
+                      rel={link.external ? "noopener noreferrer" : undefined}
                       className="text-[#8892b0] hover:text-cyan-400 transition-colors duration-300 text-sm flex items-center gap-1.5 group"
                     >
                       {link.label}
@@ -118,13 +154,15 @@ export default function Footer() {
           >
             <div className="border border-cyan-500/30 rounded-lg p-6 bg-cyan-500/5 hover:bg-cyan-500/10 transition-colors duration-300">
               <h4 className="text-white text-xs font-bold uppercase tracking-widest mb-6">
-                {t('footer.contact')}
+                {t("footer.contact")}
               </h4>
 
               <div className="space-y-4">
                 {/* Contract Address */}
                 <div>
-                  <p className="text-[#8892b0] text-xs mb-2">{t('footer.contractAddress')}</p>
+                  <p className="text-[#8892b0] text-xs mb-2">
+                    {t("footer.contractAddress")}
+                  </p>
                   <div className="flex items-center gap-2">
                     <code className="text-cyan-400 text-xs font-mono bg-black/30 px-2 py-1 rounded">
                       0x1122...7f6f6
@@ -145,7 +183,7 @@ export default function Footer() {
 
                 {/* Network Info */}
                 <p className="text-[#8892b0] text-xs">
-                  {t('footer.networkInfo')}
+                  {t("footer.networkInfo")}
                 </p>
               </div>
             </div>
@@ -164,7 +202,7 @@ export default function Footer() {
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           <p className="text-yellow-600 text-xs">
-            {t('footer.riskDisclaimer')}
+            {t("footer.riskDisclaimer")}
           </p>
         </motion.div>
 
@@ -176,22 +214,20 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.3 }}
         >
-          <p className="text-[#8892b0]">
-            {t('footer.copyright')}
-          </p>
+          <p className="text-[#8892b0]">{t("footer.copyright")}</p>
           <div className="flex items-center gap-6">
             <a
               href="#privacy"
               className="text-[#8892b0] hover:text-cyan-400 transition-colors duration-300"
             >
-              {t('footer.privacyPolicy')}
+              {t("footer.privacyPolicy")}
             </a>
             <span className="text-white/10">|</span>
             <a
               href="#terms"
               className="text-[#8892b0] hover:text-cyan-400 transition-colors duration-300"
             >
-              {t('footer.termsOfService')}
+              {t("footer.termsOfService")}
             </a>
           </div>
         </motion.div>

@@ -3,9 +3,9 @@
  * Particles converge from all directions to form the ISC snowflake logo
  * Then logo materializes and fades into the main page
  */
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ASSETS } from '@/lib/assets';
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ASSETS } from "@/lib/assets";
 
 interface IntroAnimationProps {
   onComplete: () => void;
@@ -24,7 +24,9 @@ interface AnimParticle {
 }
 
 export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
-  const [phase, setPhase] = useState<'particles' | 'logo' | 'done'>('particles');
+  const [phase, setPhase] = useState<"particles" | "logo" | "done">(
+    "particles"
+  );
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<AnimParticle[]>([]);
   const startTimeRef = useRef(0);
@@ -50,10 +52,19 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       // Start from random edges
       const edge = Math.random();
       let startX: number, startY: number;
-      if (edge < 0.25) { startX = Math.random() * w; startY = -50; }
-      else if (edge < 0.5) { startX = w + 50; startY = Math.random() * h; }
-      else if (edge < 0.75) { startX = Math.random() * w; startY = h + 50; }
-      else { startX = -50; startY = Math.random() * h; }
+      if (edge < 0.25) {
+        startX = Math.random() * w;
+        startY = -50;
+      } else if (edge < 0.5) {
+        startX = w + 50;
+        startY = Math.random() * h;
+      } else if (edge < 0.75) {
+        startX = Math.random() * w;
+        startY = h + 50;
+      } else {
+        startX = -50;
+        startY = Math.random() * h;
+      }
 
       particles.push({
         x: startX,
@@ -73,7 +84,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     canvas.width = window.innerWidth;
@@ -92,10 +103,14 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       // Easing function
-      const ease = (t: number) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+      const ease = (t: number) =>
+        t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 
-      particlesRef.current.forEach((p) => {
-        const pProgress = Math.max(0, Math.min((progress - p.delay) / (1 - p.delay), 1));
+      particlesRef.current.forEach(p => {
+        const pProgress = Math.max(
+          0,
+          Math.min((progress - p.delay) / (1 - p.delay), 1)
+        );
         const eased = ease(pProgress);
 
         p.x = p.startX + (p.targetX - p.startX) * eased;
@@ -110,8 +125,12 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
         // Trail
         if (pProgress < 0.9) {
-          const trailX = p.startX + (p.targetX - p.startX) * ease(Math.max(0, pProgress - 0.1));
-          const trailY = p.startY + (p.targetY - p.startY) * ease(Math.max(0, pProgress - 0.1));
+          const trailX =
+            p.startX +
+            (p.targetX - p.startX) * ease(Math.max(0, pProgress - 0.1));
+          const trailY =
+            p.startY +
+            (p.targetY - p.startY) * ease(Math.max(0, pProgress - 0.1));
           ctx.beginPath();
           ctx.moveTo(trailX, trailY);
           ctx.lineTo(p.x, p.y);
@@ -131,7 +150,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
       // Draw connections near end
       if (progress > 0.7) {
-        const connAlpha = (progress - 0.7) / 0.3 * 0.2;
+        const connAlpha = ((progress - 0.7) / 0.3) * 0.2;
         const particles = particlesRef.current;
         for (let i = 0; i < particles.length; i += 3) {
           for (let j = i + 3; j < particles.length; j += 3) {
@@ -153,7 +172,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
       if (elapsed < CONVERGE_DURATION + HOLD_DURATION) {
         animRef.current = requestAnimationFrame(animate);
       } else {
-        setPhase('logo');
+        setPhase("logo");
       }
     };
 
@@ -163,11 +182,11 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
   }, [generateParticles]);
 
   useEffect(() => {
-    if (phase === 'logo') {
-      const timer = setTimeout(() => setPhase('done'), 1800);
+    if (phase === "logo") {
+      const timer = setTimeout(() => setPhase("done"), 1800);
       return () => clearTimeout(timer);
     }
-    if (phase === 'done') {
+    if (phase === "done") {
       const timer = setTimeout(onComplete, 500);
       return () => clearTimeout(timer);
     }
@@ -175,7 +194,7 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
   return (
     <AnimatePresence>
-      {phase !== 'done' && (
+      {phase !== "done" && (
         <motion.div
           className="fixed inset-0 z-[100] bg-[oklch(0.08_0.02_250)] flex items-center justify-center"
           exit={{ opacity: 0 }}
@@ -185,29 +204,35 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
           <canvas
             ref={canvasRef}
             className="absolute inset-0"
-            style={{ opacity: phase === 'particles' ? 1 : 0, transition: 'opacity 0.5s' }}
+            style={{
+              opacity: phase === "particles" ? 1 : 0,
+              transition: "opacity 0.5s",
+            }}
           />
 
           {/* Logo reveal */}
           <AnimatePresence>
-            {phase === 'logo' && (
+            {phase === "logo" && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.5 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ type: 'spring', damping: 20, stiffness: 200 }}
+                transition={{ type: "spring", damping: 20, stiffness: 200 }}
                 className="relative z-10 flex flex-col items-center"
               >
                 <motion.img
                   src={ASSETS.logo}
                   alt="ISC"
                   className="w-28 h-28 sm:w-36 sm:h-36"
-                  initial={{ filter: 'brightness(2) blur(10px)' }}
-                  animate={{ filter: 'brightness(1) blur(0px)' }}
+                  initial={{ filter: "brightness(2) blur(10px)" }}
+                  animate={{ filter: "brightness(1) blur(0px)" }}
                   transition={{ duration: 0.8 }}
                 />
                 <motion.h1
                   className="mt-4 text-2xl sm:text-3xl font-bold tracking-[0.2em] text-glow"
-                  style={{ fontFamily: 'var(--font-heading)', color: 'oklch(0.85 0.08 220)' }}
+                  style={{
+                    fontFamily: "var(--font-heading)",
+                    color: "oklch(0.85 0.08 220)",
+                  }}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.6 }}
@@ -226,9 +251,11 @@ export default function IntroAnimation({ onComplete }: IntroAnimationProps) {
 
           {/* Skip button */}
           <button
-            onClick={() => { setPhase('done'); }}
+            onClick={() => {
+              setPhase("done");
+            }}
             className="absolute bottom-8 right-8 text-xs text-[oklch(0.50_0.02_220)] hover:text-[oklch(0.70_0.05_220)] transition-colors"
-            style={{ fontFamily: 'var(--font-sub)' }}
+            style={{ fontFamily: "var(--font-sub)" }}
           >
             SKIP →
           </button>

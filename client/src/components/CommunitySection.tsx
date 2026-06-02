@@ -2,11 +2,18 @@
  * Design: Quantum Ice — Community section
  * Call-to-action for joining the ISC community with video
  */
-import { useRef, useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
-import { Users, MessageCircle, Gift, Play, Volume2, VolumeX } from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { ASSETS, LINKS } from '@/lib/assets';
+import { useRef, useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import {
+  Users,
+  MessageCircle,
+  Gift,
+  Play,
+  Volume2,
+  VolumeX,
+} from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
+import { ASSETS, LINKS } from "@/lib/assets";
 
 export default function CommunitySection() {
   const { t } = useLanguage();
@@ -24,7 +31,10 @@ export default function CommunitySection() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          video.play().then(() => setIsPlaying(true)).catch(() => {});
+          video
+            .play()
+            .then(() => setIsPlaying(true))
+            .catch(() => {});
         } else {
           video.pause();
           setIsPlaying(false);
@@ -60,29 +70,34 @@ export default function CommunitySection() {
   const communityFeatures = [
     {
       icon: <Users className="w-6 h-6" />,
-      title: t('community.feature1') || '全球社区',
-      desc: t('community.feature1Desc') || '连接全球 ISC 爱好者',
+      title: t("community.feature1") || "全球社区",
+      desc: t("community.feature1Desc") || "连接全球 ISC 爱好者",
       link: LINKS.community,
       isClickable: true,
     },
     {
       icon: <MessageCircle className="w-6 h-6" />,
-      title: t('community.feature2') || '实时讨论',
-      desc: t('community.feature2Desc') || '参与项目讨论和决策',
+      title: t("community.feature2") || "实时讨论",
+      desc: t("community.feature2Desc") || "参与项目讨论和决策",
       link: LINKS.telegram,
       isClickable: true,
     },
     {
       icon: <Gift className="w-6 h-6" />,
-      title: t('community.feature3') || '社区治理',
-      desc: t('community.feature3Desc') || '参与 Snapshot 投票，决定 ISC 的未来',
-      link: 'https://snapshot.org/#/s:icesnowcoin.eth',
+      title: t("community.feature3") || "社区治理",
+      desc:
+        t("community.feature3Desc") || "参与 Snapshot 投票，决定 ISC 的未来",
+      link: "https://snapshot.org/#/s:icesnowcoin.eth",
       isClickable: true,
     },
   ];
 
   return (
-    <section ref={sectionRef} id="community" className="relative py-24 sm:py-32 overflow-hidden">
+    <section
+      ref={sectionRef}
+      id="community"
+      className="relative py-24 sm:py-32 overflow-hidden"
+    >
       {/* Background */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 bg-gradient-to-b from-ice-blue/5 via-transparent to-transparent" />
@@ -94,21 +109,27 @@ export default function CommunitySection() {
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7 }}
           className="text-center mb-16"
         >
           <h2
             className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4"
-            style={{ fontFamily: 'var(--font-heading)', color: 'oklch(0.90 0.03 220)' }}
+            style={{
+              fontFamily: "var(--font-heading)",
+              color: "oklch(0.90 0.03 220)",
+            }}
           >
-            {t('video.title')}
+            {t("video.title")}
           </h2>
           <p
             className="text-lg sm:text-xl max-w-2xl mx-auto"
-            style={{ fontFamily: 'var(--font-body)', color: 'oklch(0.70 0.02 220)' }}
+            style={{
+              fontFamily: "var(--font-body)",
+              color: "oklch(0.70 0.02 220)",
+            }}
           >
-            {t('video.subtitle')}
+            {t("video.subtitle")}
           </p>
           <div className="mt-4 mx-auto h-[1px] w-24 bg-gradient-to-r from-transparent via-ice-blue to-transparent" />
         </motion.div>
@@ -151,7 +172,11 @@ export default function CommunitySection() {
                 onClick={toggleMute}
                 className="p-2 rounded-lg bg-[oklch(0.10_0.02_250/0.7)] backdrop-blur-sm border border-[oklch(0.75_0.12_220/0.2)] hover:border-[oklch(0.75_0.12_220/0.4)] transition-colors"
               >
-                {isMuted ? <VolumeX className="w-4 h-4 text-ice-blue" /> : <Volume2 className="w-4 h-4 text-ice-blue" />}
+                {isMuted ? (
+                  <VolumeX className="w-4 h-4 text-ice-blue" />
+                ) : (
+                  <Volume2 className="w-4 h-4 text-ice-blue" />
+                )}
               </button>
             </div>
           </div>
@@ -161,7 +186,7 @@ export default function CommunitySection() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
+          viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.7 }}
           className="grid sm:grid-cols-3 gap-6"
         >
@@ -182,19 +207,27 @@ export default function CommunitySection() {
                 >
                   <div
                     className="w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4"
-                    style={{ backgroundColor: 'oklch(0.75 0.12 220 / 0.1)' }}
+                    style={{ backgroundColor: "oklch(0.75 0.12 220 / 0.1)" }}
                   >
-                    <div style={{ color: 'oklch(0.75 0.12 220)' }}>{feature.icon}</div>
+                    <div style={{ color: "oklch(0.75 0.12 220)" }}>
+                      {feature.icon}
+                    </div>
                   </div>
                   <h3
                     className="text-lg font-semibold mb-2"
-                    style={{ fontFamily: 'var(--font-heading)', color: 'oklch(0.88 0.03 220)' }}
+                    style={{
+                      fontFamily: "var(--font-heading)",
+                      color: "oklch(0.88 0.03 220)",
+                    }}
                   >
                     {feature.title}
                   </h3>
                   <p
                     className="text-sm"
-                    style={{ fontFamily: 'var(--font-body)', color: 'oklch(0.65 0.02 220)' }}
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      color: "oklch(0.65 0.02 220)",
+                    }}
                   >
                     {feature.desc}
                   </p>
@@ -203,19 +236,27 @@ export default function CommunitySection() {
                 <div className="glass-card rounded-xl p-6 text-center border-glow-hover transition-all duration-300">
                   <div
                     className="w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4"
-                    style={{ backgroundColor: 'oklch(0.75 0.12 220 / 0.1)' }}
+                    style={{ backgroundColor: "oklch(0.75 0.12 220 / 0.1)" }}
                   >
-                    <div style={{ color: 'oklch(0.75 0.12 220)' }}>{feature.icon}</div>
+                    <div style={{ color: "oklch(0.75 0.12 220)" }}>
+                      {feature.icon}
+                    </div>
                   </div>
                   <h3
                     className="text-lg font-semibold mb-2"
-                    style={{ fontFamily: 'var(--font-heading)', color: 'oklch(0.88 0.03 220)' }}
+                    style={{
+                      fontFamily: "var(--font-heading)",
+                      color: "oklch(0.88 0.03 220)",
+                    }}
                   >
                     {feature.title}
                   </h3>
                   <p
                     className="text-sm"
-                    style={{ fontFamily: 'var(--font-body)', color: 'oklch(0.65 0.02 220)' }}
+                    style={{
+                      fontFamily: "var(--font-body)",
+                      color: "oklch(0.65 0.02 220)",
+                    }}
                   >
                     {feature.desc}
                   </p>

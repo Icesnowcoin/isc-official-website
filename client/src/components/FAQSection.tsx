@@ -3,10 +3,10 @@
  * Displays frequently asked questions in an accordion format
  */
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronDown } from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ChevronDown } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface FAQItem {
   question: string;
@@ -19,28 +19,28 @@ export default function FAQSection() {
 
   const faqItems: FAQItem[] = [
     {
-      question: t('faq.q1'),
-      answer: t('faq.a1'),
+      question: t("faq.q1"),
+      answer: t("faq.a1"),
     },
     {
-      question: t('faq.q2'),
-      answer: t('faq.a2'),
+      question: t("faq.q2"),
+      answer: t("faq.a2"),
     },
     {
-      question: t('faq.q3'),
-      answer: t('faq.a3'),
+      question: t("faq.q3"),
+      answer: t("faq.a3"),
     },
     {
-      question: t('faq.q4'),
-      answer: t('faq.a4'),
+      question: t("faq.q4"),
+      answer: t("faq.a4"),
     },
     {
-      question: t('faq.q5'),
-      answer: t('faq.a5'),
+      question: t("faq.q5"),
+      answer: t("faq.a5"),
     },
     {
-      question: t('faq.q6'),
-      answer: t('faq.a6'),
+      question: t("faq.q6"),
+      answer: t("faq.a6"),
     },
   ];
 
@@ -60,14 +60,12 @@ export default function FAQSection() {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, type: 'tween' }}
+          transition={{ duration: 0.6, type: "tween" }}
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-foreground">
-            {t('faq.title')}
+            {t("faq.title")}
           </h2>
-          <p className="text-lg text-muted-foreground">
-            {t('faq.subtitle')}
-          </p>
+          <p className="text-lg text-muted-foreground">{t("faq.subtitle")}</p>
         </motion.div>
 
         {/* Accordion */}
@@ -76,7 +74,7 @@ export default function FAQSection() {
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2, type: 'tween' }}
+          transition={{ duration: 0.6, delay: 0.2, type: "tween" }}
         >
           {faqItems.map((item, index) => (
             <motion.div
@@ -85,7 +83,7 @@ export default function FAQSection() {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: index * 0.05, type: 'tween' }}
+              transition={{ duration: 0.4, delay: index * 0.05, type: "tween" }}
             >
               {/* Accordion Header */}
               <button
@@ -102,7 +100,7 @@ export default function FAQSection() {
                       </h3>
                       <motion.div
                         animate={{ rotate: openIndex === index ? 180 : 0 }}
-                        transition={{ duration: 0.3, type: 'tween' }}
+                        transition={{ duration: 0.3, type: "tween" }}
                         className="flex-shrink-0 mt-1"
                       >
                         <ChevronDown className="w-5 h-5 text-cyan-400" />
@@ -117,9 +115,9 @@ export default function FAQSection() {
                 {openIndex === index && (
                   <motion.div
                     initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
+                    animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.3, type: 'tween' }}
+                    transition={{ duration: 0.3, type: "tween" }}
                     className="overflow-hidden"
                   >
                     <div className="bg-white/3 backdrop-blur-sm border border-cyan-500/10 border-t-0 rounded-b-lg p-6 text-muted-foreground leading-relaxed">

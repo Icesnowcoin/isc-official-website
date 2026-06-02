@@ -9,8 +9,8 @@
  * - 5-6 second total animation duration
  */
 
-import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Silhouette {
   x: number;
@@ -23,8 +23,10 @@ interface ISCLogoIntroAnimationProps {
   onComplete: () => void;
 }
 
-export default function ISCLogoIntroAnimation({ onComplete }: ISCLogoIntroAnimationProps) {
-  const [phase, setPhase] = useState<'init' | 'reveal' | 'done'>('init');
+export default function ISCLogoIntroAnimation({
+  onComplete,
+}: ISCLogoIntroAnimationProps) {
+  const [phase, setPhase] = useState<"init" | "reveal" | "done">("init");
   const [canSkip, setCanSkip] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>(0);
@@ -34,16 +36,17 @@ export default function ISCLogoIntroAnimation({ onComplete }: ISCLogoIntroAnimat
   const windowStatesRef = useRef<Map<string, boolean>>(new Map());
 
   // Check for reduced motion preference
-  const prefersReducedMotion = typeof window !== 'undefined' 
-    ? window.matchMedia('(prefers-reduced-motion: reduce)').matches 
-    : false;
+  const prefersReducedMotion =
+    typeof window !== "undefined"
+      ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      : false;
 
   // Initialize canvas and silhouettes
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     ctxRef.current = ctx;
@@ -53,7 +56,7 @@ export default function ISCLogoIntroAnimation({ onComplete }: ISCLogoIntroAnimat
     // Skip animation if reduced motion is preferred
     if (prefersReducedMotion) {
       setTimeout(() => {
-        setPhase('done');
+        setPhase("done");
         setTimeout(onComplete, 300);
       }, 500);
       return;
@@ -74,7 +77,7 @@ export default function ISCLogoIntroAnimation({ onComplete }: ISCLogoIntroAnimat
     }
 
     silhouettesRef.current = silhouettes;
-    setPhase('reveal');
+    setPhase("reveal");
 
     const skipTimer = setTimeout(() => setCanSkip(true), 2000);
     return () => {
@@ -91,8 +94,8 @@ export default function ISCLogoIntroAnimation({ onComplete }: ISCLogoIntroAnimat
       canvas.height = window.innerHeight;
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Handle page visibility
@@ -103,13 +106,14 @@ export default function ISCLogoIntroAnimation({ onComplete }: ISCLogoIntroAnimat
       }
     };
 
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () =>
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
   }, []);
 
   // Animation loop
   useEffect(() => {
-    if (phase === 'done' || prefersReducedMotion) return;
+    if (phase === "done" || prefersReducedMotion) return;
 
     const canvas = canvasRef.current;
     const ctx = ctxRef.current;
@@ -120,7 +124,7 @@ export default function ISCLogoIntroAnimation({ onComplete }: ISCLogoIntroAnimat
       const progress = Math.min(elapsed / 5.5, 1); // 5.5 second total animation
 
       // Clear canvas
-      ctx.fillStyle = '#0a0e27';
+      ctx.fillStyle = "#0a0e27";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Draw cyberpunk city background
@@ -137,7 +141,7 @@ export default function ISCLogoIntroAnimation({ onComplete }: ISCLogoIntroAnimat
 
       // Phase transitions
       if (progress >= 1) {
-        setPhase('done');
+        setPhase("done");
         setTimeout(onComplete, 500);
       }
 
@@ -171,9 +175,9 @@ export default function ISCLogoIntroAnimation({ onComplete }: ISCLogoIntroAnimat
   ) => {
     // Gradient sky
     const skyGradient = ctx.createLinearGradient(0, 0, 0, height);
-    skyGradient.addColorStop(0, '#0a0e27');
-    skyGradient.addColorStop(0.4, '#0d1b3d');
-    skyGradient.addColorStop(1, '#1a2a4a');
+    skyGradient.addColorStop(0, "#0a0e27");
+    skyGradient.addColorStop(0.4, "#0d1b3d");
+    skyGradient.addColorStop(1, "#1a2a4a");
     ctx.fillStyle = skyGradient;
     ctx.fillRect(0, 0, width, height);
 
@@ -188,13 +192,18 @@ export default function ISCLogoIntroAnimation({ onComplete }: ISCLogoIntroAnimat
       const buildingHeight = baseHeight + Math.sin(elapsed * 0.5 + i) * 20;
 
       // Building silhouette
-      ctx.fillStyle = 'rgba(10, 14, 39, 0.9)';
+      ctx.fillStyle = "rgba(10, 14, 39, 0.9)";
       ctx.fillRect(x, groundY - buildingHeight, buildingWidth, buildingHeight);
 
       // Building outline
-      ctx.strokeStyle = 'rgba(0, 200, 255, 0.3)';
+      ctx.strokeStyle = "rgba(0, 200, 255, 0.3)";
       ctx.lineWidth = 1;
-      ctx.strokeRect(x, groundY - buildingHeight, buildingWidth, buildingHeight);
+      ctx.strokeRect(
+        x,
+        groundY - buildingHeight,
+        buildingWidth,
+        buildingHeight
+      );
 
       // Windows with lights (pre-generated to avoid flicker)
       const windowSize = 8;
@@ -219,7 +228,7 @@ export default function ISCLogoIntroAnimation({ onComplete }: ISCLogoIntroAnimat
     }
 
     // Ground line
-    ctx.strokeStyle = 'rgba(0, 200, 255, 0.5)';
+    ctx.strokeStyle = "rgba(0, 200, 255, 0.5)";
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(0, groundY);
@@ -227,7 +236,7 @@ export default function ISCLogoIntroAnimation({ onComplete }: ISCLogoIntroAnimat
     ctx.stroke();
 
     // Neon glow on ground
-    ctx.strokeStyle = 'rgba(0, 255, 255, 0.1)';
+    ctx.strokeStyle = "rgba(0, 255, 255, 0.1)";
     ctx.lineWidth = 20;
     ctx.beginPath();
     ctx.moveTo(0, groundY);
@@ -244,7 +253,7 @@ export default function ISCLogoIntroAnimation({ onComplete }: ISCLogoIntroAnimat
     const silhouettes = silhouettesRef.current;
     const groundY = height * 0.75;
 
-    silhouettes.forEach((silhouette) => {
+    silhouettes.forEach(silhouette => {
       // Fade in silhouettes
       silhouette.opacity = Math.min(progress * 1.5, 1) * 0.7;
 
@@ -285,7 +294,12 @@ export default function ISCLogoIntroAnimation({ onComplete }: ISCLogoIntroAnimat
     const beamOpacity = Math.sin(progress * Math.PI) * 0.2;
 
     // Vertical light beam
-    const beamGradient = ctx.createLinearGradient(centerX - 100, 0, centerX + 100, 0);
+    const beamGradient = ctx.createLinearGradient(
+      centerX - 100,
+      0,
+      centerX + 100,
+      0
+    );
     beamGradient.addColorStop(0, `rgba(0, 255, 255, 0)`);
     beamGradient.addColorStop(0.5, `rgba(0, 255, 255, ${beamOpacity})`);
     beamGradient.addColorStop(1, `rgba(0, 255, 255, 0)`);
@@ -331,24 +345,24 @@ export default function ISCLogoIntroAnimation({ onComplete }: ISCLogoIntroAnimat
     ctx.globalAlpha = logoOpacity;
 
     // Outer glow
-    ctx.shadowColor = 'rgba(0, 255, 255, 0.8)';
+    ctx.shadowColor = "rgba(0, 255, 255, 0.8)";
     ctx.shadowBlur = 40 + Math.sin(elapsed * 2) * 10;
 
     // Draw ISC text as logo
-    ctx.fillStyle = 'rgba(0, 255, 255, 0.9)';
-    ctx.font = 'bold 120px Arial';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText('ISC', 0, 0);
+    ctx.fillStyle = "rgba(0, 255, 255, 0.9)";
+    ctx.font = "bold 120px Arial";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("ISC", 0, 0);
 
     // Outline
-    ctx.strokeStyle = 'rgba(0, 200, 255, 0.6)';
+    ctx.strokeStyle = "rgba(0, 200, 255, 0.6)";
     ctx.lineWidth = 3;
-    ctx.strokeText('ISC', 0, 0);
+    ctx.strokeText("ISC", 0, 0);
 
     // Rotating hexagon around logo
     const rotation = (elapsed * 0.3) % (Math.PI * 2);
-    ctx.strokeStyle = 'rgba(0, 200, 255, 0.4)';
+    ctx.strokeStyle = "rgba(0, 200, 255, 0.4)";
     ctx.lineWidth = 2;
     ctx.beginPath();
     for (let i = 0; i < 6; i++) {
@@ -383,13 +397,13 @@ export default function ISCLogoIntroAnimation({ onComplete }: ISCLogoIntroAnimat
       cancelAnimationFrame(animationRef.current);
     }
     windowStatesRef.current.clear();
-    setPhase('done');
+    setPhase("done");
     setTimeout(onComplete, 300);
   };
 
   return (
     <AnimatePresence>
-      {phase !== 'done' && (
+      {phase !== "done" && (
         <motion.div
           className="fixed inset-0 z-50 bg-black overflow-hidden"
           exit={{ opacity: 0 }}

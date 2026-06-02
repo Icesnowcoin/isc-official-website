@@ -175,3 +175,55 @@
 - [x] 验证多语言切换正常
 - [x] 删除 Footer 中的官方邮箱
 - [x] 修改 Tokenomics 表格分类，删除 Marketing 改为 R&D
+
+
+## 关键优化任务 - 2026年6月
+
+### Logo 和根目录配置
+- [x] 从 GitHub 拉取官方 Logo 文件
+- [x] 配置 Logo 到官网根目录 (/public)
+- [x] 更新 Navbar 中的 Logo 引用
+- [x] 验证 Logo 在所有页面正确显示
+
+### 删除倒计时板块
+- [x] 删除 HeroSection 中的倒计时逻辑
+- [x] 删除倒计时相关的 CSS 样式
+- [x] 删除倒计时的多语言翻译键
+- [x] 验证 Hero 部分显示正常
+
+### APY 合约和质押板块更新
+- [x] 更新 Staking 合约地址
+- [x] 更新 APY 计算逻辑
+- [x] 更新质押池子信息
+- [x] 更新多语言内容
+- [x] 验证质押功能正常工作
+
+### SEO 优化和爬虫配置
+- [x] 更新 robots.txt - 允许所有爬虫
+- [x] 更新 sitemap.xml - 包含所有页面
+- [x] 添加 Google Search Console 验证
+- [x] 添加 Bing Webmaster 验证
+- [x] 添加 Open Graph 元标签
+- [x] 添加 JSON-LD 结构化数据
+- [x] 验证 Google 可以索引
+
+### 删除占位符和测试内容
+- [x] 删除所有 "Coming Soon" 占位符
+- [x] 删除所有测试数据和示例内容
+- [x] 删除 ComponentShowcase.tsx 测试文件
+- [x] 删除所有 TODO 注释
+- [x] 删除所有调试代码
+- [x] 验证页面内容完整
+
+### 测试和验证
+- [x] 检查所有链接有效性
+- [x] 验证多語言切换功能
+- [x] 验证 SEO 元标签
+- [x] 测试爬虫抬取
+- [x] 性能检查
+
+### 部署和推送
+- [x] 创建检查点
+- [x] 推送到 GitHub
+- [x] 部署到生产环境
+- [x] 验证生产环境正常

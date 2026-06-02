@@ -7,8 +7,8 @@
  * - Smooth transitions and skip functionality
  */
 
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Particle {
   x: number;
@@ -29,8 +29,12 @@ interface PremiumIntroAnimationProps {
   onComplete: () => void;
 }
 
-export default function PremiumIntroAnimation({ onComplete }: PremiumIntroAnimationProps) {
-  const [phase, setPhase] = useState<'particles' | 'logo' | 'done'>('particles');
+export default function PremiumIntroAnimation({
+  onComplete,
+}: PremiumIntroAnimationProps) {
+  const [phase, setPhase] = useState<"particles" | "logo" | "done">(
+    "particles"
+  );
   const [canSkip, setCanSkip] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle[]>([]);
@@ -47,13 +51,13 @@ export default function PremiumIntroAnimation({ onComplete }: PremiumIntroAnimat
       canvas.height = window.innerHeight;
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Check for reduced motion preference
   const prefersReducedMotion = () => {
-    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   };
 
   // Initialize canvas and particles
@@ -61,7 +65,7 @@ export default function PremiumIntroAnimation({ onComplete }: PremiumIntroAnimat
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     ctxRef.current = ctx;
@@ -76,11 +80,11 @@ export default function PremiumIntroAnimation({ onComplete }: PremiumIntroAnimat
 
     // Color palette - icy blues and cyans
     const colors = [
-      'rgba(100, 200, 255, ',
-      'rgba(150, 220, 255, ',
-      'rgba(200, 240, 255, ',
-      'rgba(100, 180, 255, ',
-      'rgba(50, 150, 255, ',
+      "rgba(100, 200, 255, ",
+      "rgba(150, 220, 255, ",
+      "rgba(200, 240, 255, ",
+      "rgba(100, 180, 255, ",
+      "rgba(50, 150, 255, ",
     ];
 
     for (let i = 0; i < particleCount; i++) {
@@ -121,7 +125,7 @@ export default function PremiumIntroAnimation({ onComplete }: PremiumIntroAnimat
 
   // Animation loop
   useEffect(() => {
-    if (phase === 'done') return;
+    if (phase === "done") return;
 
     const canvas = canvasRef.current;
     const ctx = ctxRef.current;
@@ -129,7 +133,7 @@ export default function PremiumIntroAnimation({ onComplete }: PremiumIntroAnimat
 
     // Skip animation if reduced motion is preferred
     if (prefersReducedMotion()) {
-      setPhase('done');
+      setPhase("done");
       setTimeout(onComplete, 300);
       return;
     }
@@ -139,10 +143,15 @@ export default function PremiumIntroAnimation({ onComplete }: PremiumIntroAnimat
       const progress = Math.min(elapsed / 3, 1); // 3 second animation
 
       // Clear canvas with gradient background
-      const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-      gradient.addColorStop(0, 'rgba(5, 15, 40, 1)');
-      gradient.addColorStop(0.5, 'rgba(10, 25, 60, 1)');
-      gradient.addColorStop(1, 'rgba(5, 15, 40, 1)');
+      const gradient = ctx.createLinearGradient(
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+      gradient.addColorStop(0, "rgba(5, 15, 40, 1)");
+      gradient.addColorStop(0.5, "rgba(10, 25, 60, 1)");
+      gradient.addColorStop(1, "rgba(5, 15, 40, 1)");
       ctx.fillStyle = gradient;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -151,7 +160,7 @@ export default function PremiumIntroAnimation({ onComplete }: PremiumIntroAnimat
 
       // Update and draw particles
       const particles = particlesRef.current;
-      particles.forEach((particle) => {
+      particles.forEach(particle => {
         // Interpolate towards target position
         const easeProgress = easeInOutCubic(progress);
         particle.x += (particle.targetX - particle.x) * easeProgress * 0.05;
@@ -164,7 +173,8 @@ export default function PremiumIntroAnimation({ onComplete }: PremiumIntroAnimat
 
         // Calculate opacity based on z depth
         const depthOpacity = Math.max(0.2, 1 - Math.abs(particle.z - 50) / 100);
-        const finalOpacity = particle.opacity * depthOpacity * (1 - progress * 0.3);
+        const finalOpacity =
+          particle.opacity * depthOpacity * (1 - progress * 0.3);
 
         // Draw particle with glow
         ctx.shadowColor = `${particle.color}${finalOpacity})`;
@@ -185,9 +195,9 @@ export default function PremiumIntroAnimation({ onComplete }: PremiumIntroAnimat
         canvas.height / 2,
         glowSize
       );
-      glowGradient.addColorStop(0, 'rgba(100, 200, 255, 0.3)');
-      glowGradient.addColorStop(0.5, 'rgba(100, 200, 255, 0.1)');
-      glowGradient.addColorStop(1, 'rgba(100, 200, 255, 0)');
+      glowGradient.addColorStop(0, "rgba(100, 200, 255, 0.3)");
+      glowGradient.addColorStop(0.5, "rgba(100, 200, 255, 0.1)");
+      glowGradient.addColorStop(1, "rgba(100, 200, 255, 0)");
       ctx.fillStyle = glowGradient;
       ctx.fillRect(
         canvas.width / 2 - glowSize,
@@ -197,12 +207,12 @@ export default function PremiumIntroAnimation({ onComplete }: PremiumIntroAnimat
       );
 
       // Phase transitions
-      if (progress > 0.7 && phase === 'particles') {
-        setPhase('logo');
+      if (progress > 0.7 && phase === "particles") {
+        setPhase("logo");
       }
 
       if (progress >= 1) {
-        setPhase('done');
+        setPhase("done");
         setTimeout(onComplete, 500);
       }
 
@@ -224,8 +234,9 @@ export default function PremiumIntroAnimation({ onComplete }: PremiumIntroAnimat
       }
     };
 
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-    return () => document.removeEventListener('visibilitychange', handleVisibilityChange);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () =>
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
   }, []);
 
   const drawAurora = (
@@ -251,25 +262,22 @@ export default function PremiumIntroAnimation({ onComplete }: PremiumIntroAnimat
   };
 
   const handleSkip = () => {
-    setPhase('done');
+    setPhase("done");
     setTimeout(onComplete, 300);
   };
 
   return (
     <AnimatePresence>
-      {phase !== 'done' && (
+      {phase !== "done" && (
         <motion.div
           className="fixed inset-0 z-50 bg-black overflow-hidden"
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <canvas
-            ref={canvasRef}
-            className="w-full h-full"
-          />
+          <canvas ref={canvasRef} className="w-full h-full" />
 
           {/* Logo text animation */}
-          {phase === 'logo' && (
+          {phase === "logo" && (
             <motion.div
               className="absolute inset-0 flex items-center justify-center"
               initial={{ opacity: 0 }}
@@ -282,14 +290,12 @@ export default function PremiumIntroAnimation({ onComplete }: PremiumIntroAnimat
                   scale: [0.8, 1.1, 1],
                   opacity: [0, 1, 1],
                 }}
-                transition={{ duration: 1.5, ease: 'easeOut' }}
+                transition={{ duration: 1.5, ease: "easeOut" }}
               >
                 <h1 className="text-6xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
                   ISC
                 </h1>
-                <p className="text-xl text-cyan-300/80">
-                  Ice Snow Coin
-                </p>
+                <p className="text-xl text-cyan-300/80">Ice Snow Coin</p>
               </motion.div>
             </motion.div>
           )}

@@ -2,7 +2,7 @@
  * Design: Quantum Ice — Interactive particle field background
  * Particles form hexagonal patterns, respond to mouse movement
  */
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 interface Particle {
   x: number;
@@ -24,7 +24,7 @@ export default function ParticleField() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     const resize = () => {
@@ -32,10 +32,13 @@ export default function ParticleField() {
       canvas.height = window.innerHeight;
     };
     resize();
-    window.addEventListener('resize', resize);
+    window.addEventListener("resize", resize);
 
     // Initialize particles
-    const count = Math.min(80, Math.floor((window.innerWidth * window.innerHeight) / 20000));
+    const count = Math.min(
+      80,
+      Math.floor((window.innerWidth * window.innerHeight) / 20000)
+    );
     particlesRef.current = Array.from({ length: count }, () => ({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -50,14 +53,14 @@ export default function ParticleField() {
     const handleMouse = (e: MouseEvent) => {
       mouseRef.current = { x: e.clientX, y: e.clientY };
     };
-    window.addEventListener('mousemove', handleMouse);
+    window.addEventListener("mousemove", handleMouse);
 
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       const particles = particlesRef.current;
       const mouse = mouseRef.current;
 
-      particles.forEach((p) => {
+      particles.forEach(p => {
         // Update position
         p.x += p.vx;
         p.y += p.vy;
@@ -74,7 +77,7 @@ export default function ParticleField() {
         const dy = mouse.y - p.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < 200) {
-          const force = (200 - dist) / 200 * 0.02;
+          const force = ((200 - dist) / 200) * 0.02;
           p.vx += dx * force * 0.01;
           p.vy += dy * force * 0.01;
         }
@@ -121,8 +124,8 @@ export default function ParticleField() {
     animate();
 
     return () => {
-      window.removeEventListener('resize', resize);
-      window.removeEventListener('mousemove', handleMouse);
+      window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", handleMouse);
       cancelAnimationFrame(animRef.current);
     };
   }, []);

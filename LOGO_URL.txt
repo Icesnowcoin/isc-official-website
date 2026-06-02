@@ -1,0 +1,26 @@
+ISC Official Logo URLs
+======================
+
+GitHub Repository: https://github.com/Icesnowcoin/ISC-Logo
+
+Main Logo Files:
+- ISC_256x256.png: https://raw.githubusercontent.com/Icesnowcoin/ISC-Logo/main/ISC_256x256.png
+- isc_logo.png: https://raw.githubusercontent.com/Icesnowcoin/ISC-Logo/main/isc_logo.png
+- isc_token_icon_32 (2).svg: https://raw.githubusercontent.com/Icesnowcoin/ISC-Logo/main/isc_token_icon_32%20(2).svg
+
+Favicon Files:
+- favicon.ico: https://raw.githubusercontent.com/Icesnowcoin/ISC-Logo/main/favicon.ico
+- favicon-16x16.png: https://raw.githubusercontent.com/Icesnowcoin/ISC-Logo/main/favicon-16x16.png
+- favicon-32x32.png: https://raw.githubusercontent.com/Icesnowcoin/ISC-Logo/main/favicon-32x32.png
+- favicon-48x48.png: https://raw.githubusercontent.com/Icesnowcoin/ISC-Logo/main/favicon-48x48.png
+- apple-touch-icon.png: https://raw.githubusercontent.com/Icesnowcoin/ISC-Logo/main/apple-touch-icon.png
+- android-chrome-192x192.png: https://raw.githubusercontent.com/Icesnowcoin/ISC-Logo/main/android-chrome-192x192.png
+- android-chrome-512x512.png: https://raw.githubusercontent.com/Icesnowcoin/ISC-Logo/main/android-chrome-512x512.png
+
+Current Website Usage:
+- Navbar Logo: ASSETS.logo (CDN URL)
+- Favicon: GitHub raw URL
+- Apple Touch Icon: GitHub raw URL
+- Sitemap Image: CDN URL
+
+Note: All Logo files are stored in the official GitHub repository and can be accessed via raw.githubusercontent.com

@@ -10,8 +10,8 @@
  * - Cyberpunk aesthetic with quantum effects
  */
 
-import { useState, useEffect, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useRef, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Particle3D {
   x: number;
@@ -33,8 +33,12 @@ interface QuantumIntroAnimationProps {
   onComplete: () => void;
 }
 
-export default function QuantumIntroAnimation({ onComplete }: QuantumIntroAnimationProps) {
-  const [phase, setPhase] = useState<'init' | 'particles' | 'logo' | 'done'>('init');
+export default function QuantumIntroAnimation({
+  onComplete,
+}: QuantumIntroAnimationProps) {
+  const [phase, setPhase] = useState<"init" | "particles" | "logo" | "done">(
+    "init"
+  );
   const [canSkip, setCanSkip] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const particlesRef = useRef<Particle3D[]>([]);
@@ -48,7 +52,7 @@ export default function QuantumIntroAnimation({ onComplete }: QuantumIntroAnimat
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     ctxRef.current = ctx;
@@ -63,17 +67,18 @@ export default function QuantumIntroAnimation({ onComplete }: QuantumIntroAnimat
 
     // Neon color palette
     const neonColors = [
-      { r: 0, g: 255, b: 255 },    // Cyan
-      { r: 255, g: 0, b: 255 },    // Magenta
-      { r: 0, g: 255, b: 127 },    // Spring Green
-      { r: 255, g: 0, b: 127 },    // Rose
-      { r: 0, g: 127, b: 255 },    // Dodger Blue
-      { r: 255, g: 127, b: 0 },    // Orange
+      { r: 0, g: 255, b: 255 }, // Cyan
+      { r: 255, g: 0, b: 255 }, // Magenta
+      { r: 0, g: 255, b: 127 }, // Spring Green
+      { r: 255, g: 0, b: 127 }, // Rose
+      { r: 0, g: 127, b: 255 }, // Dodger Blue
+      { r: 255, g: 127, b: 0 }, // Orange
     ];
 
     for (let i = 0; i < particleCount; i++) {
       const angle = Math.random() * Math.PI * 2;
-      const distance = Math.random() * Math.max(canvas.width, canvas.height) * 1.5;
+      const distance =
+        Math.random() * Math.max(canvas.width, canvas.height) * 1.5;
       const depth = Math.random() * 200 - 100;
 
       const startX = centerX + Math.cos(angle) * distance;
@@ -107,7 +112,7 @@ export default function QuantumIntroAnimation({ onComplete }: QuantumIntroAnimat
     }
 
     particlesRef.current = particles;
-    setPhase('particles');
+    setPhase("particles");
 
     // Allow skip after 1.5 seconds
     const skipTimer = setTimeout(() => setCanSkip(true), 1500);
@@ -124,13 +129,13 @@ export default function QuantumIntroAnimation({ onComplete }: QuantumIntroAnimat
       canvas.height = window.innerHeight;
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Main animation loop
   useEffect(() => {
-    if (phase === 'done') return;
+    if (phase === "done") return;
 
     const canvas = canvasRef.current;
     const ctx = ctxRef.current;
@@ -168,7 +173,8 @@ export default function QuantumIntroAnimation({ onComplete }: QuantumIntroAnimat
 
         // Calculate depth-based opacity and size
         const depthFactor = Math.max(0.3, 1 - Math.abs(particle.z) / 200);
-        const finalOpacity = particle.opacity * depthFactor * (1 - progress * 0.2);
+        const finalOpacity =
+          particle.opacity * depthFactor * (1 - progress * 0.2);
         const finalSize = particle.size * depthFactor;
 
         // Draw particle with glow effect
@@ -189,18 +195,24 @@ export default function QuantumIntroAnimation({ onComplete }: QuantumIntroAnimat
       });
 
       // Draw electromagnetic waves
-      drawElectromagneticWaves(ctx, canvas.width, canvas.height, elapsed, progress);
+      drawElectromagneticWaves(
+        ctx,
+        canvas.width,
+        canvas.height,
+        elapsed,
+        progress
+      );
 
       // Draw central holographic logo
       drawHolographicLogo(ctx, canvas.width, canvas.height, elapsed, progress);
 
       // Phase transitions
-      if (progress > 0.6 && phase === 'particles') {
-        setPhase('logo');
+      if (progress > 0.6 && phase === "particles") {
+        setPhase("logo");
       }
 
       if (progress >= 1) {
-        setPhase('done');
+        setPhase("done");
         setTimeout(onComplete, 500);
       }
 
@@ -231,7 +243,14 @@ export default function QuantumIntroAnimation({ onComplete }: QuantumIntroAnimat
     ctx.fillRect(0, 0, width, height);
 
     // Add radial quantum field
-    const radialGradient = ctx.createRadialGradient(width / 2, height / 2, 0, width / 2, height / 2, Math.max(width, height));
+    const radialGradient = ctx.createRadialGradient(
+      width / 2,
+      height / 2,
+      0,
+      width / 2,
+      height / 2,
+      Math.max(width, height)
+    );
     radialGradient.addColorStop(0, `hsla(${hue1}, 100%, 30%, 0.2)`);
     radialGradient.addColorStop(1, `hsla(${hue1}, 100%, 30%, 0)`);
 
@@ -248,7 +267,7 @@ export default function QuantumIntroAnimation({ onComplete }: QuantumIntroAnimat
     const lineHeight = 2;
     const offset = (elapsed * 100) % lineHeight;
 
-    ctx.strokeStyle = 'rgba(0, 255, 255, 0.03)';
+    ctx.strokeStyle = "rgba(0, 255, 255, 0.03)";
     ctx.lineWidth = 1;
 
     for (let y = -offset; y < height; y += lineHeight) {
@@ -259,7 +278,7 @@ export default function QuantumIntroAnimation({ onComplete }: QuantumIntroAnimat
     }
 
     // Horizontal scanlines
-    ctx.strokeStyle = 'rgba(255, 0, 255, 0.02)';
+    ctx.strokeStyle = "rgba(255, 0, 255, 0.02)";
     for (let x = 0; x < width; x += 50) {
       ctx.beginPath();
       ctx.moveTo(x, 0);
@@ -369,25 +388,22 @@ export default function QuantumIntroAnimation({ onComplete }: QuantumIntroAnimat
   };
 
   const handleSkip = () => {
-    setPhase('done');
+    setPhase("done");
     setTimeout(onComplete, 300);
   };
 
   return (
     <AnimatePresence>
-      {phase !== 'done' && (
+      {phase !== "done" && (
         <motion.div
           className="fixed inset-0 z-50 bg-black overflow-hidden"
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <canvas
-            ref={canvasRef}
-            className="w-full h-full"
-          />
+          <canvas ref={canvasRef} className="w-full h-full" />
 
           {/* Quantum text overlay */}
-          {phase === 'logo' && (
+          {phase === "logo" && (
             <motion.div
               className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none"
               initial={{ opacity: 0 }}
@@ -400,7 +416,7 @@ export default function QuantumIntroAnimation({ onComplete }: QuantumIntroAnimat
                   scale: [0.5, 1.2, 1],
                   opacity: [0, 1, 1],
                 }}
-                transition={{ duration: 1.5, ease: 'easeOut' }}
+                transition={{ duration: 1.5, ease: "easeOut" }}
               >
                 <h1 className="text-7xl font-black bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent mb-4 drop-shadow-lg">
                   ISC
