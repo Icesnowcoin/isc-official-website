@@ -177,8 +177,8 @@ export default function TokenomicsSection() {
         {/* Key Metrics */}
         <motion.div {...fadeInUp} className="grid sm:grid-cols-2 gap-4 mb-10">
           {[
-            { label: t('tokenomics.presalePrice'), value: '1 USDT = 2000 ISC' },
-            { label: t('tokenomics.audit'), value: 'TechRate (April 2026 - 21/21 Security Checks Passed)' },
+            { label: 'Total Supply', value: '202,600,000 ISC' },
+            { label: 'Blockchain', value: 'BSC - BEP20' },
           ].map((metric, i) => (
             <div key={i} className="glass-card rounded-xl p-4 text-center">
               <div className="text-xs text-muted-foreground mb-1" style={{ fontFamily: 'var(--font-sub)' }}>{metric.label}</div>
