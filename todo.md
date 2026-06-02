@@ -235,3 +235,12 @@
   - 新增行：Staking Rewards (APY 10%) | 10.1% | 20,260,000 ISC | Annual Staking Rewards Pool | ✓ Active
   - 调整 Community / Ecosystem / R&D 数量从 80,040,000 ISC 改为 59,780,000 ISC
   - 编译验证：成功（18.55s）
+
+
+## 2026年6月2日 - 链上价格修复
+
+- [x] 修复 Tokenomics 中"On-Chain Price"显示"Price unavailable"的问题
+  - 原因：CoinGecko API 未收录 ISC 代币
+  - 解决方案：改用 DexScreener API 获取 PancakeSwap 上的实时价格
+  - API 端点：https://api.dexscreener.com/latest/dex/tokens/0x11229a3f976566FA8a3ba462C432122f3B8876f6
+  - 当前价格：$0.0006584 (来自 PancakeSwap V3 ISC/USDT 池)

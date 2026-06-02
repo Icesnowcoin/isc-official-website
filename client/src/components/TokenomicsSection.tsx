@@ -22,19 +22,25 @@ export default function TokenomicsSection() {
   const [onChainPrice, setOnChainPrice] = useState<string>('Loading...');
   const [priceLoading, setPriceLoading] = useState(true);
 
-  // Fetch on-chain price from CoinGecko API
+  // Fetch on-chain price from DexScreener API (PancakeSwap)
   useEffect(() => {
     const fetchPrice = async () => {
       try {
         setPriceLoading(true);
         const response = await fetch(
-          'https://api.coingecko.com/api/v3/simple/token_price/binance-smart-chain?contract_addresses=0x11229a3f976566FA8a3ba462C432122f3B8876f6&vs_currencies=usd'
+          'https://api.dexscreener.com/latest/dex/tokens/0x11229a3f976566FA8a3ba462C432122f3B8876f6'
         );
         const data = await response.json();
-        const price = data['0x11229a3f976566fa8a3ba462c432122f3b8876f6']?.usd;
+        const pairs = data?.pairs;
         
-        if (price) {
-          setOnChainPrice(`1 ISC = $${price.toFixed(6)}`);
+        if (pairs && pairs.length > 0) {
+          // Get price from the first pair (highest liquidity)
+          const price = parseFloat(pairs[0].priceUsd);
+          if (price && !isNaN(price)) {
+            setOnChainPrice(`1 ISC = $${price < 0.01 ? price.toFixed(7) : price.toFixed(4)}`);
+          } else {
+            setOnChainPrice('Price unavailable');
+          }
         } else {
           setOnChainPrice('Price unavailable');
         }
@@ -47,8 +53,8 @@ export default function TokenomicsSection() {
     };
 
     fetchPrice();
-    // Refresh price every 30 seconds
-    const interval = setInterval(fetchPrice, 30000);
+    // Refresh price every 60 seconds
+    const interval = setInterval(fetchPrice, 60000);
     return () => clearInterval(interval);
   }, []);
 

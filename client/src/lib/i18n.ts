@@ -31,6 +31,8 @@ export const translations: Record<Locale, Record<string, string>> = {
     'hero.buyNow': '参与预売',
     'hero.learnMore': '了解更多',
     'hero.totalSupply': '总供应量',
+    'hero.presalePrice': '预售价格',
+    'hero.chain': '区块链',
     'hero.contractAddress': '合约地址',
 
     // About
@@ -100,6 +102,9 @@ export const translations: Record<Locale, Record<string, string>> = {
     'howToBuy.step2.desc': '访问 PancakeSwap、Uniswap 或其他支持的 DEX，粘贴 ISC 合约地址进行交易',
     'howToBuy.step2.button': '前往 PancakeSwap',
 
+    'howToBuy.step3.title': '将 ISC 添加到钱包',
+    'howToBuy.step3.desc': '使用合约地址导入代币以查看您的余额。您已准备好持有、质押或交易！',
+    'howToBuy.step3.button': '复制合约地址',
     'howToBuy.securityTip': '安全提示：始终验证合约地址并从官方链接交易',
 
     // FAQ
