@@ -91,13 +91,13 @@ export const translations: Record<Locale, Record<string, string>> = {
     'dex.collapse': '收起',
 
     // How to Buy
-    'howToBuy.title': '如何购买 ISC',
-    'howToBuy.subtitle': '3 个简单步骤开始您的 ISC 之旅',
+    'howToBuy.title': '如何在去中心化交易所交易 ISC',
+    'howToBuy.subtitle': '3 个简单步骤在 DEX 上交易 ISC',
     'howToBuy.step1.title': '连接您的钱包',
     'howToBuy.step1.desc': '安装 MetaMask 或 Trust Wallet。将网络切换到 BNB 智能链 (BSC)。',
     'howToBuy.step1.hint': '需要 BNB 支付 Gas 费用',
-    'howToBuy.step2.title': '获取 ISC',
-    'howToBuy.step2.desc': '前往 PancakeSwap，将 USDT 交换为 ISC',
+    'howToBuy.step2.title': '选择 DEX 并交易',
+    'howToBuy.step2.desc': '访问 PancakeSwap、Uniswap 或其他支持的 DEX，粘贴 ISC 合约地址进行交易',
     'howToBuy.step2.button': '前往 PancakeSwap',
 
     'howToBuy.securityTip': '安全提示：始终验证合约地址并从官方链接交易',
@@ -344,13 +344,13 @@ export const translations: Record<Locale, Record<string, string>> = {
     'dex.collapse': 'Collapse',
 
     // How to Buy
-    'howToBuy.title': 'How to Buy ISC',
-    'howToBuy.subtitle': '3 Simple Steps to Start Your ISC Journey',
+    'howToBuy.title': 'How to Trade ISC on Decentralized Exchanges',
+    'howToBuy.subtitle': '3 Simple Steps to Trade ISC on DEX',
     'howToBuy.step1.title': 'Connect Your Wallet',
     'howToBuy.step1.desc': 'Install MetaMask or Trust Wallet. Switch network to BNB Smart Chain (BSC).',
     'howToBuy.step1.hint': 'Need BNB for gas fees',
-    'howToBuy.step2.title': 'Swap BNB for ISC',
-    'howToBuy.step2.desc': 'Visit PancakeSwap, connect your wallet, and swap BNB for ISC using the verified contract address.',
+    'howToBuy.step2.title': 'Choose DEX and Trade',
+    'howToBuy.step2.desc': 'Visit PancakeSwap, Uniswap, or other supported DEX, paste ISC contract address to trade',
     'howToBuy.step2.button': 'Go to PancakeSwap',
     'howToBuy.step3.title': 'Add ISC to Wallet',
     'howToBuy.step3.desc': "Import token with contract address to see your balance. You're ready to hold, stake, or trade!",
@@ -599,13 +599,13 @@ export const translations: Record<Locale, Record<string, string>> = {
     'dex.collapse': 'Thu gọn',
 
     // How to Buy
-    'howToBuy.title': 'Cách mua ISC',
-    'howToBuy.subtitle': '3 bước đơn giản để bắt đầu hành trình ISC của bạn',
+    'howToBuy.title': 'Cách giao dịch ISC trên Sàn giao dịch phi tập trung',
+    'howToBuy.subtitle': '3 bước đơn giản để giao dịch ISC trên DEX',
     'howToBuy.step1.title': 'Kết nối Ví của bạn',
     'howToBuy.step1.desc': 'Cài đặt MetaMask hoặc Trust Wallet. Chuyển đổi mạng sang BNB Smart Chain (BSC).',
     'howToBuy.step1.hint': 'Cần BNB để trả phí gas',
-    'howToBuy.step2.title': 'Hoán đổi BNB lấy ISC',
-    'howToBuy.step2.desc': 'Truy cập PancakeSwap, kết nối ví của bạn và hoán đổi BNB lấy ISC bằng địa chỉ hợp đồng đã xác minh.',
+    'howToBuy.step2.title': 'Chọn DEX và giao dịch',
+    'howToBuy.step2.desc': 'Truy cập PancakeSwap, Uniswap hoặc các DEX được hỗ trợ khác, dán địa chỉ hợp đồng ISC để giao dịch',
     'howToBuy.step2.button': 'Đi đến PancakeSwap',
     'howToBuy.step3.title': 'Thêm ISC vào Ví',
     'howToBuy.step3.desc': 'Nhập token bằng địa chỉ hợp đồng để xem số dư của bạn. Bạn đã sẵn sàng giữ, đặt cược hoặc giao dịch!',
