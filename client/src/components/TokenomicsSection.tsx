@@ -2,7 +2,7 @@
  * Design: Quantum Ice — Tokenomics section
  * Table visualization, key metrics, contract info
  */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Copy, Check } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -19,6 +19,38 @@ const fadeInUp = {
 export default function TokenomicsSection() {
   const { t } = useLanguage();
   const [copied, setCopied] = useState(false);
+  const [onChainPrice, setOnChainPrice] = useState<string>('Loading...');
+  const [priceLoading, setPriceLoading] = useState(true);
+
+  // Fetch on-chain price from CoinGecko API
+  useEffect(() => {
+    const fetchPrice = async () => {
+      try {
+        setPriceLoading(true);
+        const response = await fetch(
+          'https://api.coingecko.com/api/v3/simple/token_price/binance-smart-chain?contract_addresses=0x11229a3f976566FA8a3ba462C432122f3B8876f6&vs_currencies=usd'
+        );
+        const data = await response.json();
+        const price = data['0x11229a3f976566fa8a3ba462c432122f3b8876f6']?.usd;
+        
+        if (price) {
+          setOnChainPrice(`1 ISC = $${price.toFixed(6)}`);
+        } else {
+          setOnChainPrice('Price unavailable');
+        }
+      } catch (error) {
+        console.error('Error fetching price:', error);
+        setOnChainPrice('Price unavailable');
+      } finally {
+        setPriceLoading(false);
+      }
+    };
+
+    fetchPrice();
+    // Refresh price every 30 seconds
+    const interval = setInterval(fetchPrice, 30000);
+    return () => clearInterval(interval);
+  }, []);
 
   const copyContract = () => {
     navigator.clipboard.writeText(LINKS.contract);
@@ -175,14 +207,17 @@ export default function TokenomicsSection() {
         </motion.div>
 
         {/* Key Metrics */}
-        <motion.div {...fadeInUp} className="grid sm:grid-cols-2 gap-4 mb-10">
+        <motion.div {...fadeInUp} className="grid sm:grid-cols-3 gap-4 mb-10">
           {[
             { label: 'Total Supply', value: '202,600,000 ISC' },
+            { label: 'On-Chain Price', value: onChainPrice, loading: priceLoading },
             { label: 'Blockchain', value: 'BSC - BEP20' },
           ].map((metric, i) => (
             <div key={i} className="glass-card rounded-xl p-4 text-center">
               <div className="text-xs text-muted-foreground mb-1" style={{ fontFamily: 'var(--font-sub)' }}>{metric.label}</div>
-              <div className="text-sm font-bold text-ice-blue" style={{ fontFamily: 'var(--font-mono)' }}>{metric.value}</div>
+              <div className="text-sm font-bold text-ice-blue" style={{ fontFamily: 'var(--font-mono)' }}>
+                {metric.loading ? <span className="animate-pulse">Loading...</span> : metric.value}
+              </div>
             </div>
           ))}
         </motion.div>
