@@ -47,7 +47,7 @@ export default function EcosystemShowcase() {
             unit: "Airdrops, Governance Voting Bonus",
           },
         ],
-        status: "Prototype Design Phase",
+        status: "Coming Soon Deployment",
       },
       gamefi: {
         title: "GameFi Ecosystem",
@@ -86,7 +86,7 @@ export default function EcosystemShowcase() {
             unit: "生态空投、治理投票加成",
           },
         ],
-        status: "原型设计阶段",
+        status: "即将部署阶段",
       },
       gamefi: {
         title: "GameFi 生态",
@@ -117,7 +117,7 @@ export default function EcosystemShowcase() {
             unit: "Airdrops, Voting Bonus",
           },
         ],
-        status: "Giai đoạn Thiết kế Prototype",
+        status: "Sắp triển khai",
       },
       gamefi: {
         title: "Hệ sinh thái GameFi",
@@ -202,6 +202,18 @@ export default function EcosystemShowcase() {
                 </span>
               </div>
             </div>
+          </div>
+
+          {/* NFT Video Display */}
+          <div className="mb-6 rounded-lg overflow-hidden border border-[oklch(0.75_0.12_220/0.3)]">
+            <video
+              src="/manus-storage/isc_nft_crystal_solid_5bc6ebe6.mp4"
+              autoPlay
+              loop
+              muted
+              className="w-full h-auto"
+              style={{ maxHeight: '400px', objectFit: 'cover' }}
+            />
           </div>
 
           {/* NFT Features Grid */}
