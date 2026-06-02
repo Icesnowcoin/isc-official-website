@@ -92,7 +92,7 @@ export const translations: Record<Locale, Record<string, string>> = {
 
     // How to Buy
     'howToBuy.title': '如何在去中心化交易所交易 ISC',
-    'howToBuy.subtitle': '3 个简单步骤在 DEX 上交易 ISC',
+    'howToBuy.subtitle': '在 DEX 上交易 ISC',
     'howToBuy.step1.title': '连接您的钱包',
     'howToBuy.step1.desc': '安装 MetaMask 或 Trust Wallet。将网络切换到 BNB 智能链 (BSC)。',
     'howToBuy.step1.hint': '需要 BNB 支付 Gas 费用',
@@ -345,7 +345,7 @@ export const translations: Record<Locale, Record<string, string>> = {
 
     // How to Buy
     'howToBuy.title': 'How to Trade ISC on Decentralized Exchanges',
-    'howToBuy.subtitle': '3 Simple Steps to Trade ISC on DEX',
+    'howToBuy.subtitle': 'Trade ISC on DEX',
     'howToBuy.step1.title': 'Connect Your Wallet',
     'howToBuy.step1.desc': 'Install MetaMask or Trust Wallet. Switch network to BNB Smart Chain (BSC).',
     'howToBuy.step1.hint': 'Need BNB for gas fees',
@@ -600,7 +600,7 @@ export const translations: Record<Locale, Record<string, string>> = {
 
     // How to Buy
     'howToBuy.title': 'Cách giao dịch ISC trên Sàn giao dịch phi tập trung',
-    'howToBuy.subtitle': '3 bước đơn giản để giao dịch ISC trên DEX',
+    'howToBuy.subtitle': 'Giao dịch ISC trên DEX',
     'howToBuy.step1.title': 'Kết nối Ví của bạn',
     'howToBuy.step1.desc': 'Cài đặt MetaMask hoặc Trust Wallet. Chuyển đổi mạng sang BNB Smart Chain (BSC).',
     'howToBuy.step1.hint': 'Cần BNB để trả phí gas',
