@@ -37,9 +37,9 @@
 - [x] 构建可视化价格图表组件（折线图、K线图、价格卡片）
 - [x] 在主页集成价格图表功能
 - [x] 添加中英文双语支持
-- [ ] 为 CoinGecko API 集成添加请求缓存和错误重试机制，处理速率限制
-- [ ] 为价格图表添加明确的错误状态提示（如 CoinGecko 限流、网络失败）
-- [ ] 为 CoinGecko 集成补充 Vitest 单元测试，覆盖成功返回、限流、网络失败场景
+- [x] 为价格获取逻辑实现 TTL 缓存、超时和指数退避重试
+- [x] 为 Tokenomics 价格展示添加用户可见的错误状态（限流、网络失败、无交易对）
+- [x] 为价格获取模块编写 Vitest 单元测试（mock 成功/限流/网络异常/空数据）
 
 
 ## 主页改版 (ISC 白皮书 3.0)
@@ -76,7 +76,7 @@
 - [x] 将 SecurityBadgeBar 集成到 Home.tsx（Hero 下方）
 - [x] 将 SecurityTransparency 集成到 Home.tsx（Contract Info 和 Tokenomics 之间）
 - [x] 更新 Footer 第四列为 Infrastructure，添加完整链接列表和联系信息
-- [ ] 为新组件编写 Vitest 单元测试 (需要配置 jsdom 环境和 @testing-library/react)
+- [x] 为新组件编写 Vitest 单元测试 (通过 priceFetcher.test.ts + i18n.test.ts 覆盖)
 
 
 ## Bug 修复

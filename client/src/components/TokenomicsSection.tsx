@@ -2,12 +2,13 @@
  * Design: Quantum Ice — Tokenomics section
  * Table visualization, key metrics, contract info
  */
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
-import { Copy, Check } from 'lucide-react';
+import { Copy, Check, AlertTriangle, RefreshCw, Wifi, WifiOff } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { ASSETS, LINKS } from '@/lib/assets';
 import { toast } from 'sonner';
+import { fetchISCPrice, type PriceState } from '@/lib/priceFetcher';
 
 const fadeInUp = {
   initial: { opacity: 0, y: 40 },
@@ -19,44 +20,21 @@ const fadeInUp = {
 export default function TokenomicsSection() {
   const { t } = useLanguage();
   const [copied, setCopied] = useState(false);
-  const [onChainPrice, setOnChainPrice] = useState<string>('Loading...');
-  const [priceLoading, setPriceLoading] = useState(true);
+  const [priceState, setPriceState] = useState<PriceState>({ status: 'loading' });
 
-  // Fetch on-chain price from DexScreener API (PancakeSwap)
-  useEffect(() => {
-    const fetchPrice = async () => {
-      try {
-        setPriceLoading(true);
-        const response = await fetch(
-          'https://api.dexscreener.com/latest/dex/tokens/0x11229a3f976566FA8a3ba462C432122f3B8876f6'
-        );
-        const data = await response.json();
-        const pairs = data?.pairs;
-        
-        if (pairs && pairs.length > 0) {
-          // Get price from the first pair (highest liquidity)
-          const price = parseFloat(pairs[0].priceUsd);
-          if (price && !isNaN(price)) {
-            setOnChainPrice(`1 ISC = $${price < 0.01 ? price.toFixed(7) : price.toFixed(4)}`);
-          } else {
-            setOnChainPrice('Price unavailable');
-          }
-        } else {
-          setOnChainPrice('Price unavailable');
-        }
-      } catch (error) {
-        console.error('Error fetching price:', error);
-        setOnChainPrice('Price unavailable');
-      } finally {
-        setPriceLoading(false);
-      }
-    };
-
-    fetchPrice();
-    // Refresh price every 60 seconds
-    const interval = setInterval(fetchPrice, 60000);
-    return () => clearInterval(interval);
+  const loadPrice = useCallback(async () => {
+    setPriceState({ status: 'loading' });
+    const result = await fetchISCPrice();
+    setPriceState(result);
   }, []);
+
+  // Fetch on-chain price using priceFetcher module
+  useEffect(() => {
+    loadPrice();
+    // Refresh price every 60 seconds
+    const interval = setInterval(loadPrice, 60000);
+    return () => clearInterval(interval);
+  }, [loadPrice]);
 
   const copyContract = () => {
     navigator.clipboard.writeText(LINKS.contract);
@@ -214,18 +192,52 @@ export default function TokenomicsSection() {
 
         {/* Key Metrics */}
         <motion.div {...fadeInUp} className="grid sm:grid-cols-3 gap-4 mb-10">
-          {[
-            { label: 'Total Supply', value: '202,600,000 ISC' },
-            { label: 'On-Chain Price', value: onChainPrice, loading: priceLoading },
-            { label: 'Blockchain', value: 'BSC - BEP20' },
-          ].map((metric, i) => (
-            <div key={i} className="glass-card rounded-xl p-4 text-center">
-              <div className="text-xs text-muted-foreground mb-1" style={{ fontFamily: 'var(--font-sub)' }}>{metric.label}</div>
-              <div className="text-sm font-bold text-ice-blue" style={{ fontFamily: 'var(--font-mono)' }}>
-                {metric.loading ? <span className="animate-pulse">Loading...</span> : metric.value}
-              </div>
+          {/* Total Supply */}
+          <div className="glass-card rounded-xl p-4 text-center">
+            <div className="text-xs text-muted-foreground mb-1" style={{ fontFamily: 'var(--font-sub)' }}>Total Supply</div>
+            <div className="text-sm font-bold text-ice-blue" style={{ fontFamily: 'var(--font-mono)' }}>202,600,000 ISC</div>
+          </div>
+
+          {/* On-Chain Price with error states */}
+          <div className="glass-card rounded-xl p-4 text-center">
+            <div className="text-xs text-muted-foreground mb-1" style={{ fontFamily: 'var(--font-sub)' }}>On-Chain Price</div>
+            <div className="text-sm font-bold" style={{ fontFamily: 'var(--font-mono)' }}>
+              {priceState.status === 'loading' && (
+                <span className="animate-pulse text-ice-blue">Loading...</span>
+              )}
+              {priceState.status === 'success' && (
+                <span className="text-ice-blue">{priceState.formattedPrice}</span>
+              )}
+              {priceState.status === 'error' && (
+                <div className="flex flex-col items-center gap-1">
+                  <span className="text-amber-400 text-xs flex items-center gap-1">
+                    {priceState.errorType === 'network' || priceState.errorType === 'timeout' ? (
+                      <WifiOff className="w-3 h-3" />
+                    ) : (
+                      <AlertTriangle className="w-3 h-3" />
+                    )}
+                    {priceState.errorType === 'rate_limit' && 'Rate limited'}
+                    {priceState.errorType === 'network' && 'Network error'}
+                    {priceState.errorType === 'timeout' && 'Timeout'}
+                    {priceState.errorType === 'no_pair' && 'No pair found'}
+                    {priceState.errorType === 'unknown' && 'Unavailable'}
+                  </span>
+                  <button
+                    onClick={loadPrice}
+                    className="text-[10px] text-muted-foreground hover:text-ice-blue flex items-center gap-0.5 transition-colors"
+                  >
+                    <RefreshCw className="w-2.5 h-2.5" /> Retry
+                  </button>
+                </div>
+              )}
             </div>
-          ))}
+          </div>
+
+          {/* Blockchain */}
+          <div className="glass-card rounded-xl p-4 text-center">
+            <div className="text-xs text-muted-foreground mb-1" style={{ fontFamily: 'var(--font-sub)' }}>Blockchain</div>
+            <div className="text-sm font-bold text-ice-blue" style={{ fontFamily: 'var(--font-mono)' }}>BSC - BEP20</div>
+          </div>
         </motion.div>
 
         {/* Contract Address */}
