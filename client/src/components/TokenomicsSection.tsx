@@ -30,7 +30,7 @@ export default function TokenomicsSection() {
   const tokenomicsData = [
     { category: 'Liquidity Pool (Short-term)', percent: '5%', amount: '10,130,000 ISC', usage: '1 Year Lock (UNCX Network)', lock: '✓ Locked' },
     { category: 'Liquidity Pool (Long-term)', percent: '35%', amount: '70,910,000 ISC', usage: '4 Years Lock (UNCX Network)', lock: '✓ Locked' },
-    { category: t('tokenomics.team'), percent: '20%', amount: '40,520,000 ISC', usage: '24 Months Linear Release (Team Finance)', lock: '✓ Locked' },
+    { category: 'Developer Token Lock', percent: '20%', amount: '40,520,000 ISC', usage: '24 Months Linear Release (Team Finance)', lock: '✓ Locked' },
     { category: 'Staking Rewards (APY 10%)', percent: '10.1%', amount: '20,260,000 ISC', usage: 'Annual Staking Rewards Pool', lock: '✓ Active' },
     { category: 'Community / Ecosystem / R&D', percent: 'Remaining', amount: '59,780,000 ISC', usage: t('tokenomics.operationsDesc'), lock: 'Planned' },
   ];
